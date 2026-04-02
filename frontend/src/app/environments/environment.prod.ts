@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://your-backend.up.railway.app/api',
+  apiUrl: 'https://kadiaragro-production.up.railway.app/api',
 };
