@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Champ;
 use App\Models\Intrant;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -39,6 +40,17 @@ class DatabaseSeeder extends Seeder
 
         foreach ($intrants as $intrant) {
             Intrant::create($intrant);
+        }
+
+        // Champs (ordre important : id 1=Yokh, 2=Ablaye Fall, 3=Razel, 4=Projet)
+        $champs = [
+            ['nom' => 'Yokh', 'superficie_ha' => null, 'localisation' => null, 'description' => null],
+            ['nom' => 'Ablaye Fall', 'superficie_ha' => null, 'localisation' => null, 'description' => null],
+            ['nom' => 'Razel', 'superficie_ha' => null, 'localisation' => null, 'description' => null],
+            ['nom' => 'Projet', 'superficie_ha' => null, 'localisation' => null, 'description' => null],
+        ];
+        foreach ($champs as $champ) {
+            Champ::create($champ);
         }
 
         $this->call(DepenseSeeder::class);
