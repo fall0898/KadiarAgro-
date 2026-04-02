@@ -12,7 +12,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->string('nom', 150);
-            $table->decimal('superficie_ha', 10, 4);
+            $table->decimal('superficie_ha', 10, 4)->nullable();
             $table->string('localisation', 300)->nullable();
             $table->decimal('latitude', 10, 8)->nullable();
             $table->decimal('longitude', 11, 8)->nullable();

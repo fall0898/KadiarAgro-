@@ -43,14 +43,9 @@ class DatabaseSeeder extends Seeder
         }
 
         // Champs (ordre important : id 1=Yokh, 2=Ablaye Fall, 3=Razel, 4=Projet)
-        $champs = [
-            ['nom' => 'Yokh', 'superficie_ha' => null, 'localisation' => null, 'description' => null],
-            ['nom' => 'Ablaye Fall', 'superficie_ha' => null, 'localisation' => null, 'description' => null],
-            ['nom' => 'Razel', 'superficie_ha' => null, 'localisation' => null, 'description' => null],
-            ['nom' => 'Projet', 'superficie_ha' => null, 'localisation' => null, 'description' => null],
-        ];
-        foreach ($champs as $champ) {
-            Champ::create($champ);
+        $champs = ['Yokh', 'Ablaye Fall', 'Razel', 'Projet'];
+        foreach ($champs as $nom) {
+            Champ::create(['nom' => $nom, 'user_id' => 1]);
         }
 
         $this->call(DepenseSeeder::class);
