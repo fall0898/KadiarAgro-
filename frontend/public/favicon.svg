@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Fond rond vert -->
+  <circle cx="32" cy="32" r="32" fill="#15803D"/>
+
+  <!-- Tige centrale -->
+  <line x1="32" y1="52" x2="32" y2="24" stroke="#86EFAC" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Feuille gauche -->
+  <path d="M32 38 Q18 30 20 16 Q28 22 32 38Z" fill="#4ADE80"/>
+
+  <!-- Feuille droite -->
+  <path d="M32 32 Q46 24 44 10 Q36 16 32 32Z" fill="#86EFAC"/>
+
+  <!-- Soleil / grain -->
+  <circle cx="38" cy="16" r="5" fill="#FCD34D"/>
+  <line x1="38" y1="9" x2="38" y2="7" stroke="#FCD34D" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="38" y1="25" x2="38" y2="23" stroke="#FCD34D" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="31" y1="16" x2="29" y2="16" stroke="#FCD34D" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="47" y1="16" x2="45" y2="16" stroke="#FCD34D" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="33" y1="11" x2="31.5" y2="9.5" stroke="#FCD34D" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="43" y1="11" x2="44.5" y2="9.5" stroke="#FCD34D" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- Sol -->
+  <path d="M18 52 Q32 48 46 52" stroke="#86EFAC" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+</svg>
