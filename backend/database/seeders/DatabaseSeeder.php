@@ -40,5 +40,7 @@ class DatabaseSeeder extends Seeder
         foreach ($intrants as $intrant) {
             Intrant::create($intrant);
         }
+
+        $this->call(DepenseSeeder::class);
     }
 }
