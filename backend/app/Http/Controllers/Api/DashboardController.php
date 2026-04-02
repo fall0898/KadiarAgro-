@@ -15,9 +15,15 @@ class DashboardController extends Controller
 {
     public function kpis()
     {
-        $annee = now()->year;
-        $debut = "{$annee}-01-01";
-        $fin = "{$annee}-12-31";
+        // Campagne agricole : octobre → septembre
+        $now = now();
+        if ($now->month >= 10) {
+            $debut = $now->year . '-10-01';
+            $fin   = ($now->year + 1) . '-09-30';
+        } else {
+            $debut = ($now->year - 1) . '-10-01';
+            $fin   = $now->year . '-09-30';
+        }
 
         $totalVentes = Vente::whereBetween('date_vente', [$debut, $fin])->sum('montant_total_fcfa');
         $totalDepenses = Depense::whereBetween('date_depense', [$debut, $fin])->sum('montant_fcfa');
