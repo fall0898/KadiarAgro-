@@ -15,7 +15,7 @@ import { Employe } from '../../core/models';
       <div class="flex items-center gap-3 mb-6">
         <a routerLink="/app/employes" class="text-neutral-400 hover:text-neutral-600 text-sm">← Employés</a>
         <span class="text-neutral-300">/</span>
-        <h1 class="text-xl font-bold text-neutral-800">{{ isEdit() ? 'Modifier l\'employé' : 'Nouvel employé' }}</h1>
+        <h1 class="text-xl font-bold text-neutral-800">{{ isEdit() ? "Modifier l'employé" : 'Nouvel employé' }}</h1>
       </div>
       <div class="bg-white rounded-lg shadow-sm p-6">
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
