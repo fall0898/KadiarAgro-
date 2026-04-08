@@ -66,4 +66,11 @@ class EmployeController extends Controller
     {
         return response()->json($employe->paiementsSalaire()->get());
     }
+
+    public function financements(Employe $employe)
+    {
+        return response()->json(
+            $employe->financements()->with('depense', 'remboursements')->orderBy('date_financement', 'desc')->get()
+        );
+    }
 }

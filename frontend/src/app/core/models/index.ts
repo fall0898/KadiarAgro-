@@ -185,6 +185,33 @@ export interface DashboardKpis {
   stocks_en_alerte: number;
 }
 
+export interface Financement {
+  id: number;
+  employe_id: number;
+  user_id: number;
+  montant_fcfa: number;
+  motif?: string;
+  date_financement: string;
+  mode_paiement: 'especes' | 'mobile_money' | 'virement' | 'autre';
+  notes?: string;
+  depense_id?: number;
+  montant_rembourse_fcfa: number;
+  statut: 'en_cours' | 'partiel' | 'rembourse';
+  employe?: Employe;
+  depense?: Depense;
+  remboursements?: RemboursementFinancement[];
+}
+
+export interface RemboursementFinancement {
+  id: number;
+  financement_id: number;
+  montant_fcfa: number;
+  date_remboursement: string;
+  mode_paiement: 'especes' | 'mobile_money' | 'virement' | 'autre';
+  notes?: string;
+  vente_id?: number;
+}
+
 export interface FinanceResume {
   total_ventes_fcfa: number;
   total_depenses_fcfa: number;
@@ -208,4 +235,5 @@ export const CATEGORIES_DEPENSES = [
   { value: 'entretien_materiel', label: 'Entretien matériel' },
   { value: 'alimentation_betail', label: 'Alimentation bétail' },
   { value: 'frais_recolte', label: 'Frais récolte' },
+  { value: 'financement_individuel', label: 'Financement individuel' },
 ];

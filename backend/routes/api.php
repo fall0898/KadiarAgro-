@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\FinancementController;
 use App\Http\Controllers\Api\ChampController;
 use App\Http\Controllers\Api\CultureController;
 use App\Http\Controllers\Api\DashboardController;
@@ -115,10 +116,18 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/employes/{employe}', [EmployeController::class, 'show']);
     Route::get('/employes/{employe}/taches', [EmployeController::class, 'taches']);
     Route::get('/employes/{employe}/paiements', [EmployeController::class, 'paiements']);
+    Route::get('/employes/{employe}/financements', [EmployeController::class, 'financements']);
+
+    // Financements
+    Route::get('/financements', [FinancementController::class, 'index']);
+    Route::get('/financements/{financement}', [FinancementController::class, 'show']);
     Route::middleware('role:admin')->group(function () {
         Route::post('/employes', [EmployeController::class, 'store']);
         Route::put('/employes/{employe}', [EmployeController::class, 'update']);
         Route::delete('/employes/{employe}', [EmployeController::class, 'destroy']);
+        Route::post('/financements', [FinancementController::class, 'store']);
+        Route::post('/financements/{financement}/remboursements', [FinancementController::class, 'addRemboursement']);
+        Route::delete('/financements/{financement}', [FinancementController::class, 'destroy']);
     });
 
     // Tâches
