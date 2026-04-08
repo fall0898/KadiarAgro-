@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Champ;
+use App\Models\Employe;
 use App\Models\Intrant;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -51,6 +52,29 @@ class DatabaseSeeder extends Seeder
         $admin = User::where('email', 'admin@kadiar-agro.com')->first();
         foreach (['Yokh', 'Ablaye Fall', 'Razel', 'Projet'] as $nom) {
             Champ::firstOrCreate(['nom' => $nom], ['user_id' => $admin->id]);
+        }
+
+        // Employés — firstOrCreate par nom pour survivre aux resets
+        $employes = [
+            ['nom' => 'Abdou Aziz Fall',       'poste' => 'Gérant',  'telephone' => '775759378'],
+            ['nom' => 'Mandickou Fall',         'poste' => 'Ouvrier', 'telephone' => null],
+            ['nom' => 'Ousmane Fall Sa Thies',  'poste' => 'Ouvrier', 'telephone' => null],
+            ['nom' => 'Amadou Diao Fall',       'poste' => 'Ouvrier', 'telephone' => null],
+            ['nom' => 'Ablaye Fall Machine',    'poste' => null,      'telephone' => null],
+            ['nom' => 'Ablaye Fall',            'poste' => 'Ouvrier', 'telephone' => null],
+        ];
+
+        foreach ($employes as $e) {
+            Employe::firstOrCreate(
+                ['nom' => $e['nom']],
+                [
+                    'user_id'            => $admin->id,
+                    'poste'              => $e['poste'],
+                    'telephone'          => $e['telephone'],
+                    'salaire_mensuel_fcfa' => 0,
+                    'est_actif'          => true,
+                ]
+            );
         }
 
         $this->call(DepenseSeeder::class);
