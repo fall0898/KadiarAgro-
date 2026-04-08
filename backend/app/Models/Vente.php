@@ -12,6 +12,7 @@ class Vente extends Model
     protected $fillable = [
         'user_id', 'champ_id', 'culture_id', 'acheteur', 'produit',
         'quantite_kg', 'prix_unitaire_fcfa', 'montant_total_fcfa', 'date_vente', 'notes',
+        'est_auto_generee', 'source_type', 'source_id',
     ];
 
     protected function casts(): array
