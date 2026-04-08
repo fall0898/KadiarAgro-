@@ -99,5 +99,6 @@ class DatabaseSeeder extends Seeder
 
         $this->call(DepenseSeeder::class);
         $this->call(FinancementSeeder::class);
+        $this->call(VenteSeeder::class);
     }
 }

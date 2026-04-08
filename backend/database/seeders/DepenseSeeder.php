@@ -9,8 +9,8 @@ class DepenseSeeder extends Seeder
 {
     public function run(): void
     {
-        // Ne pas ré-insérer si les dépenses existent déjà
-        if (Depense::where('est_auto_generee', false)->count() > 0) {
+        // Ne pas ré-insérer si toutes les dépenses existent déjà (202 entrées attendues)
+        if (Depense::where('est_auto_generee', false)->count() >= 202) {
             return;
         }
 
@@ -219,6 +219,8 @@ class DepenseSeeder extends Seeder
             ['carburant', 'Essence', 10000, '2026-03-15', null],
             ['transport', 'Transport Tywo', 15000, '2026-03-15', null],
             ['carburant', 'Essence', 5000, '2026-03-15', null],
+            // Avril 2026
+            ['frais_recolte', 'Frais De Récolte Tomate particulier', 79000, '2026-04-08', 1],
         ];
 
         foreach ($depenses as [$cat, $desc, $montant, $date, $champId]) {
