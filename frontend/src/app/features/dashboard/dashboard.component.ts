@@ -4,7 +4,7 @@ import { RouterLink } from '@angular/router';
 import { BaseChartDirective } from 'ng2-charts';
 import { ChartConfiguration, ChartData } from 'chart.js';
 import { ApiService } from '../../core/services/api.service';
-import { DashboardKpis, Depense, Vente, Stock, Tache } from '../../core/models';
+import { DashboardKpis, Depense, Vente, Stock } from '../../core/models';
 import { CurrencyFcfaPipe } from '../../core/pipes/currency-fcfa.pipe';
 import { DateFrPipe } from '../../core/pipes/date-fr.pipe';
 
@@ -233,33 +233,6 @@ interface FinanceParChamp {
           </div>
         </div>
 
-        <!-- Tâches en cours -->
-        <div class="bg-white rounded-xl border border-neutral-200 lg:col-span-2">
-          <div class="px-5 py-4 border-b border-neutral-100 flex items-center justify-between">
-            <h3 class="font-semibold text-neutral-800">Tâches en cours</h3>
-            <a routerLink="/app/taches" class="text-xs text-primary-600 hover:underline font-medium">Voir tout →</a>
-          </div>
-          <div class="divide-y divide-neutral-50">
-            @for (t of tachesEnCours.slice(0, 5); track t.id) {
-              <div class="px-5 py-3 flex items-center gap-4 hover:bg-neutral-50 transition-colors">
-                <div class="w-2 h-2 rounded-full flex-shrink-0"
-                  [class]="t.priorite === 'urgente' ? 'bg-red-400' : t.priorite === 'haute' ? 'bg-amber-400' : 'bg-neutral-300'">
-                </div>
-                <div class="flex-1 min-w-0">
-                  <p class="text-sm font-medium text-neutral-700 truncate">{{ t.titre }}</p>
-                  <p class="text-xs text-neutral-400 mt-0.5">{{ t.employe?.nom }} · {{ t.date_debut | dateFr }}</p>
-                </div>
-                <span class="text-xs px-2.5 py-0.5 rounded-full font-medium flex-shrink-0"
-                  [class]="t.statut === 'en_cours' ? 'bg-blue-100 text-blue-700' : 'bg-amber-100 text-amber-700'">
-                  {{ t.statut === 'a_faire' ? 'À faire' : 'En cours' }}
-                </span>
-              </div>
-            }
-            @empty {
-              <p class="px-5 py-10 text-center text-sm text-neutral-400">Aucune tâche en cours</p>
-            }
-          </div>
-        </div>
       </div>
     </div>
   `,
@@ -271,8 +244,6 @@ export class DashboardComponent implements OnInit {
   depensesRecentes: Depense[] = [];
   ventesRecentes: Vente[] = [];
   stocksAlertes: Stock[] = [];
-  tachesEnCours: Tache[] = [];
-
   barChartData: ChartData<'bar'> = { labels: [], datasets: [] };
 
   barChartOptions: ChartConfiguration['options'] = {
@@ -308,7 +279,6 @@ export class DashboardComponent implements OnInit {
     this.api.get<Depense[]>('dashboard/depenses-recentes').subscribe(d => this.depensesRecentes = d);
     this.api.get<Vente[]>('dashboard/ventes-recentes').subscribe(d => this.ventesRecentes = d);
     this.api.get<Stock[]>('dashboard/stocks-alertes').subscribe(d => this.stocksAlertes = d);
-    this.api.get<Tache[]>('dashboard/taches-en-cours').subscribe(d => this.tachesEnCours = d);
     this.api.get<FinanceParChamp[]>('finance/par-champ').subscribe(data => {
       this.barChartData = {
         labels: data.map(d => d.champ_nom),

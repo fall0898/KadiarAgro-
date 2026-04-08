@@ -11,7 +11,6 @@ use App\Http\Controllers\Api\FinanceController;
 use App\Http\Controllers\Api\IntrantController;
 use App\Http\Controllers\Api\PaiementSalaireController;
 use App\Http\Controllers\Api\StockController;
-use App\Http\Controllers\Api\TacheController;
 use App\Http\Controllers\Api\UtilisateurController;
 use App\Http\Controllers\Api\VenteController;
 use Illuminate\Support\Facades\Route;
@@ -114,7 +113,6 @@ Route::middleware('auth:sanctum')->group(function () {
     // Employés
     Route::get('/employes', [EmployeController::class, 'index']);
     Route::get('/employes/{employe}', [EmployeController::class, 'show']);
-    Route::get('/employes/{employe}/taches', [EmployeController::class, 'taches']);
     Route::get('/employes/{employe}/paiements', [EmployeController::class, 'paiements']);
     Route::get('/employes/{employe}/financements', [EmployeController::class, 'financements']);
 
@@ -128,16 +126,6 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/financements', [FinancementController::class, 'store']);
         Route::post('/financements/{financement}/remboursements', [FinancementController::class, 'addRemboursement']);
         Route::delete('/financements/{financement}', [FinancementController::class, 'destroy']);
-    });
-
-    // Tâches
-    Route::get('/taches', [TacheController::class, 'index']);
-    Route::get('/taches/{tache}', [TacheController::class, 'show']);
-    Route::middleware('role:admin')->group(function () {
-        Route::post('/taches', [TacheController::class, 'store']);
-        Route::put('/taches/{tache}', [TacheController::class, 'update']);
-        Route::delete('/taches/{tache}', [TacheController::class, 'destroy']);
-        Route::patch('/taches/{tache}/statut', [TacheController::class, 'updateStatut']);
     });
 
     // Paiements Salaire

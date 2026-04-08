@@ -5,7 +5,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ApiService } from '../../core/services/api.service';
 import { AuthService } from '../../core/services/auth.service';
 import { ToastService } from '../../core/services/toast.service';
-import { Employe, Tache, PaiementSalaire, Financement } from '../../core/models';
+import { Employe, PaiementSalaire, Financement } from '../../core/models';
 import { DateFrPipe } from '../../core/pipes/date-fr.pipe';
 import { CurrencyFcfaPipe } from '../../core/pipes/currency-fcfa.pipe';
 
@@ -40,25 +40,9 @@ import { CurrencyFcfaPipe } from '../../core/pipes/currency-fcfa.pipe';
 
         <!-- Tabs -->
         <div class="flex border-b border-neutral-200 mb-4">
-          <button (click)="activeTab.set('taches')" class="px-4 py-2 text-sm font-medium border-b-2 transition-colors" [class]="activeTab() === 'taches' ? 'border-primary-500 text-primary-700' : 'border-transparent text-neutral-500'">Tâches</button>
           <button (click)="activeTab.set('paiements')" class="px-4 py-2 text-sm font-medium border-b-2 transition-colors" [class]="activeTab() === 'paiements' ? 'border-primary-500 text-primary-700' : 'border-transparent text-neutral-500'">Paiements</button>
           <button (click)="activeTab.set('financements')" class="px-4 py-2 text-sm font-medium border-b-2 transition-colors" [class]="activeTab() === 'financements' ? 'border-primary-500 text-primary-700' : 'border-transparent text-neutral-500'">Financements</button>
         </div>
-
-        @if (activeTab() === 'taches') {
-          <div class="bg-white rounded-lg shadow-sm divide-y divide-neutral-100">
-            @for (t of taches(); track t.id) {
-              <div class="px-4 py-3 flex items-center gap-4">
-                <div class="flex-1">
-                  <p class="text-sm font-medium">{{ t.titre }}</p>
-                  <p class="text-xs text-neutral-400">{{ t.champ?.nom || '-' }} • {{ t.date_debut | dateFr }}</p>
-                </div>
-                <span class="text-xs px-2 py-0.5 rounded-full" [class]="t.statut === 'en_cours' ? 'bg-primary-100 text-primary-700' : t.statut === 'termine' ? 'bg-neutral-100 text-neutral-600' : 'bg-accent-100 text-accent-700'">{{ t.statut }}</span>
-              </div>
-            }
-            @empty { <p class="py-8 text-center text-sm text-neutral-400">Aucune tâche</p> }
-          </div>
-        }
 
         @if (activeTab() === 'paiements') {
           @if (auth.isAdmin()) {
@@ -188,10 +172,9 @@ export class FicheEmployeComponent implements OnInit {
   auth = inject(AuthService);
 
   employe = signal<Employe | null>(null);
-  taches = signal<Tache[]>([]);
-  paiements = signal<PaiementSalaire[]>([]);
+paiements = signal<PaiementSalaire[]>([]);
   financements = signal<Financement[]>([]);
-  activeTab = signal<'taches' | 'paiements' | 'financements'>('taches');
+  activeTab = signal<'paiements' | 'financements'>('paiements');
   expandedFinancement = signal<number | null>(null);
 
   financementForm = this.fb.group({
@@ -220,8 +203,7 @@ export class FicheEmployeComponent implements OnInit {
   ngOnInit(): void {
     this.employeId = +this.route.snapshot.paramMap.get('id')!;
     this.api.get<Employe>(`employes/${this.employeId}`).subscribe(e => this.employe.set(e));
-    this.api.get<Tache[]>(`employes/${this.employeId}/taches`).subscribe(d => this.taches.set(d));
-    this.api.get<PaiementSalaire[]>(`employes/${this.employeId}/paiements`).subscribe(d => this.paiements.set(d));
+this.api.get<PaiementSalaire[]>(`employes/${this.employeId}/paiements`).subscribe(d => this.paiements.set(d));
     this.api.get<Financement[]>(`employes/${this.employeId}/financements`).subscribe(d => this.financements.set(d));
   }
 

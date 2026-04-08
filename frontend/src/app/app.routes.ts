@@ -53,11 +53,6 @@ export const routes: Routes = [
       { path: 'employes/:id', loadComponent: () => import('./features/employes/fiche-employe.component').then(m => m.FicheEmployeComponent) },
       { path: 'employes/:id/modifier', canActivate: [adminGuard], loadComponent: () => import('./features/employes/form-employe.component').then(m => m.FormEmployeComponent) },
 
-      // Tâches
-      { path: 'taches', loadComponent: () => import('./features/taches/liste-taches.component').then(m => m.ListeTachesComponent) },
-      { path: 'taches/nouveau', canActivate: [adminGuard], loadComponent: () => import('./features/taches/form-tache.component').then(m => m.FormTacheComponent) },
-      { path: 'taches/:id/modifier', canActivate: [adminGuard], loadComponent: () => import('./features/taches/form-tache.component').then(m => m.FormTacheComponent) },
-
       // Utilisateurs (admin only)
       { path: 'utilisateurs', canActivate: [adminGuard], loadComponent: () => import('./features/utilisateurs/liste-utilisateurs.component').then(m => m.ListeUtilisateursComponent) },
       { path: 'utilisateurs/nouveau', canActivate: [adminGuard], loadComponent: () => import('./features/utilisateurs/form-utilisateur.component').then(m => m.FormUtilisateurComponent) },

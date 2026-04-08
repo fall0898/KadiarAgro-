@@ -57,11 +57,6 @@ class EmployeController extends Controller
         return response()->json(['message' => 'Employé supprimé.']);
     }
 
-    public function taches(Employe $employe)
-    {
-        return response()->json($employe->taches()->with('champ', 'culture')->get());
-    }
-
     public function paiements(Employe $employe)
     {
         return response()->json($employe->paiementsSalaire()->get());
