@@ -69,6 +69,13 @@ class FinancementController extends Controller
             'notes'              => 'nullable|string',
         ]);
 
+        $restant = $financement->montant_fcfa - $financement->montant_rembourse_fcfa;
+        if ($data['montant_fcfa'] > $restant) {
+            return response()->json([
+                'message' => "Le montant dépasse le solde restant dû ({$restant} FCFA).",
+            ], 422);
+        }
+
         $employe = $financement->employe;
 
         // Créer la vente auto (recette de remboursement)

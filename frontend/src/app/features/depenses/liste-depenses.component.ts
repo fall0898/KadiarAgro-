@@ -78,7 +78,7 @@ import { DateFrPipe } from '../../core/pipes/date-fr.pipe';
                   <td class="px-4 py-3 text-right">
                     @if (!d.est_auto_generee) {
                       <a [routerLink]="['/app/depenses', d.id, 'modifier']" class="text-xs text-accent-600 hover:underline mr-2">Modifier</a>
-                      <button (click)="supprimer(d.id)" class="text-xs text-error hover:underline">Suppr.</button>
+                      <button (click)="supprimer(d)" class="text-xs text-error hover:underline">Suppr.</button>
                     }
                   </td>
                 }
@@ -124,9 +124,10 @@ export class ListeDepensesComponent implements OnInit {
     this.charger();
   }
 
-  supprimer(id: number): void {
-    if (!confirm('Confirmer la suppression ?')) return;
-    this.api.delete(`depenses/${id}`).subscribe({
+  supprimer(d: Depense): void {
+    const msg = `Supprimer "${d.description}" (${d.montant_fcfa.toLocaleString('fr-FR')} FCFA) ?`;
+    if (!confirm(msg)) return;
+    this.api.delete(`depenses/${d.id}`).subscribe({
       next: () => { this.toast.success('Dépense supprimée.'); this.charger(); },
     });
   }

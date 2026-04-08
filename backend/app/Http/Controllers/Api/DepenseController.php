@@ -44,6 +44,10 @@ class DepenseController extends Controller
 
     public function update(Request $request, Depense $depense)
     {
+        if ($depense->est_auto_generee) {
+            return response()->json(['message' => 'Cette dépense est auto-générée et ne peut pas être modifiée.'], 422);
+        }
+
         $data = $request->validate([
             'champ_id' => 'sometimes|nullable|exists:champs,id',
             'categorie' => 'sometimes|in:intrant,salaire,materiel,autre,carburant,main_oeuvre,traitement_phytosanitaire,transport,irrigation,entretien_materiel,alimentation_betail,frais_recolte',
@@ -58,6 +62,10 @@ class DepenseController extends Controller
 
     public function destroy(Depense $depense)
     {
+        if ($depense->est_auto_generee) {
+            return response()->json(['message' => 'Cette dépense est auto-générée et ne peut pas être supprimée.'], 422);
+        }
+
         $depense->delete();
         return response()->json(['message' => 'Dépense supprimée.']);
     }

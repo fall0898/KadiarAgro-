@@ -46,7 +46,8 @@ import { CurrencyFcfaPipe } from '../../core/pipes/currency-fcfa.pipe';
                 <td class="px-4 py-3 text-right">
                   <a [routerLink]="['/app/employes', e.id]" class="text-xs text-primary-600 hover:underline mr-2">Fiche</a>
                   @if (auth.isAdmin()) {
-                    <a [routerLink]="['/app/employes', e.id, 'modifier']" class="text-xs text-neutral-500 hover:underline">Modifier</a>
+                    <a [routerLink]="['/app/employes', e.id, 'modifier']" class="text-xs text-neutral-500 hover:underline mr-2">Modifier</a>
+                    <button (click)="supprimer(e)" class="text-xs text-red-500 hover:underline">Suppr.</button>
                   }
                 </td>
               </tr>
@@ -67,5 +68,15 @@ export class ListeEmployesComponent implements OnInit {
 
   ngOnInit(): void {
     this.api.get<Employe[]>('employes').subscribe(d => this.employes.set(d));
+  }
+
+  supprimer(e: Employe): void {
+    if (!confirm(`Supprimer l'employé "${e.nom}" ? Cette action est irréversible.`)) return;
+    this.api.delete(`employes/${e.id}`).subscribe({
+      next: () => {
+        this.toast.success('Employé supprimé.');
+        this.employes.update(list => list.filter(x => x.id !== e.id));
+      },
+    });
   }
 }
