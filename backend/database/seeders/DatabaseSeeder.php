@@ -34,6 +34,26 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
+        User::firstOrCreate(
+            ['email' => 'serigne-kadiar@gmail.com'],
+            [
+                'nom'      => 'Serigne Kadiar Mafal Fall',
+                'password' => Hash::make('password'),
+                'role'     => 'lecteur',
+                'est_actif' => true,
+            ]
+        );
+
+        User::firstOrCreate(
+            ['email' => 'fall@gmail.com'],
+            [
+                'nom'      => 'Abdou Aziz Fall',
+                'password' => Hash::make('password'),
+                'role'     => 'lecteur',
+                'est_actif' => true,
+            ]
+        );
+
         $intrants = [
             ['nom' => 'NPK 15-15-15',        'categorie' => 'Engrais',                 'unite' => 'kg'],
             ['nom' => 'Urée 46%',             'categorie' => 'Engrais',                 'unite' => 'kg'],
